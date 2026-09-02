@@ -10,6 +10,7 @@ pkgs.mkShell {
 
   buildInputs = with pkgs; [
     cmake
+    kubectl
   ];
 
   LANG = "en_US.UTF-8";
