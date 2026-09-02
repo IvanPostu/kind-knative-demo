@@ -64,6 +64,8 @@ spec:
   selector:
     app: 3scale-kourier-gateway
   type: NodePort
+
+kubectl apply --filename kourier.yaml
 ```
 
 ```sh
@@ -81,7 +83,21 @@ kubectl describe configmap/config-network --namespace knative-serving
 # ingress-class:
 # ----
 # kourier.ingress.networking.knative.dev
+```
 
+```sh
+kubectl patch configmap/config-domain \
+  --namespace knative-serving \
+  --type merge \
+  --patch '{"data":{"127.0.0.1.sslip.io":""}}'
+
+kubectl describe configmap/config-domain --namespace knative-serving
+# ... (abbreviated for readability)
+# Data
+# ====
+# 127.0.0.1.sslip.io:
+# ----
+# ...
 ```
 
 ```sh
@@ -118,7 +134,7 @@ kubectl get ksvc
 ```
 
 ```sh
-# curl -v http://helloworld-go.default.svc.cluster.local
+curl -v http://helloworld-go.default.127.0.0.1.sslip.io
 ```
 
 ```sh
