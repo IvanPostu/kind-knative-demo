@@ -9,6 +9,7 @@ pkgs.mkShell {
   ];
 
   buildInputs = with pkgs; [
+    argocd
     cmake
     kubectl
   ];

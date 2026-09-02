@@ -137,7 +137,28 @@ kubectl get ksvc
 curl -v http://helloworld-go.default.127.0.0.1.sslip.io
 ```
 
+## ArgoCD
+
 ```sh
+# file must exist
+cat ~/.kube/config
+
+kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+
+argocd admin initial-password -n argocd
+# ppnWV3e5230dZ3eQ
+
+# login
+argocd login localhost:8080 --insecure
+
+# dummy app
+argocd app create guestbook --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace default
+
+argocd app get guestbook
+
+kubectl port-forward svc/guestbook-ui 8081:80
 ```
 
 ```sh
@@ -150,3 +171,4 @@ curl -v http://helloworld-go.default.127.0.0.1.sslip.io
 
 1. <https://knative.dev/blog/articles/set-up-a-local-knative-environment-with-kind/#step-1-setting-up-your-kubernetes-deployment-using-kind>
 1. <https://kind.sigs.k8s.io/docs/user/quick-start/#creating-a-cluster>
+1. <https://argo-cd.readthedocs.io/en/stable/getting_started/>
