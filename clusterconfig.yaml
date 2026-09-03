@@ -8,5 +8,3 @@ nodes:
         hostPort: 80
       - containerPort: 31443
         hostPort: 443
-    extraHosts:
-      - host.docker.internal:host-gateway
