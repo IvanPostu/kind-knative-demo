@@ -43,6 +43,11 @@ kubectl get crd rabbitmqsources.sources.knative.dev
 ```
 
 ```sh
+kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v1.15.0/eventing-crds.yaml
+kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v1.15.0/eventing-core.yaml
+```
+
+```sh
 kubectl create namespace knative-eventing
 
 # kubectl apply -f https://github.com/knative-extensions/eventing-rabbitmq/releases/download/knative-v1.15.0/rabbitmq-broker.yaml
@@ -211,3 +216,4 @@ docker run -d \
 1. <https://argo-cd.readthedocs.io/en/stable/getting_started/>
 1. <https://gitlab.com/nanuchi/argocd-app-config/-/blob/main/application.yaml?ref_type=heads>
 1. <https://knative.dev/docs/install/eventing/rabbitmq-install/#prerequisites>
+1. <https://knative.dev/docs/install/yaml-install/eventing/install-eventing-with-yaml/>
