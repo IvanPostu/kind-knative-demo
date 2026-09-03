@@ -8,7 +8,7 @@ spec:
     connectionSecret:
       name: myapp-rabbitmq-secret
   rabbitmqResourcesConfig:
-    queueName: q.main1
+    queueName: q.main
     vhost: /
     parallelism: 1
     predeclared: true
@@ -18,6 +18,6 @@ spec:
     backoffDelay: PT1S
   sink:
     ref:
-      apiVersion: eventing.knative.dev/v1
-      kind: Broker
-      name: rabbitmq-broker
+      apiVersion: sinks.knative.dev/v1alpha1
+      kind: JobSink
+      name: event-job-sink
