@@ -242,7 +242,7 @@ Connection to host.docker.internal 5672 port [tcp/amqp] succeeded!
 ```sh
 kubectl get pods -A | grep -i rabbit
 
-kubectl logs -n knative-sources <rabbitmq-controller-pod>
+kubectl logs -n knative-sources rabbitmq-controller-manager-cd77bd599-ptqbr
 ```
 
 ## References
@@ -253,3 +253,4 @@ kubectl logs -n knative-sources <rabbitmq-controller-pod>
 1. <https://gitlab.com/nanuchi/argocd-app-config/-/blob/main/application.yaml?ref_type=heads>
 1. <https://knative.dev/docs/install/eventing/rabbitmq-install/#prerequisites>
 1. <https://knative.dev/docs/install/yaml-install/eventing/install-eventing-with-yaml/>
+1. <https://kind.sigs.k8s.io/docs/user/configuration/#getting-started>
