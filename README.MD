@@ -181,6 +181,22 @@ argocd app get guestbook
 kubectl port-forward svc/guestbook-ui 8081:80
 ```
 
+```sh
+# delete app
+kubectl get applications -n argocd
+kubectl delete application <app-name> -n argocd
+kubectl delete application myapp-demo -n argocd
+
+# delete finalizer
+kubectl get application myapp-demo -n argocd -o yaml | grep final
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io/foreground
+
+kubectl patch application myapp-demo -n argocd \
+  --type=json \
+  -p='[{"op":"remove","path":"/metadata/finalizers"}]'
+```
+
 ## My app
 
 ```sh

@@ -2,6 +2,7 @@ apiVersion: sinks.knative.dev/v1alpha1
 kind: JobSink
 metadata:
   name: job-sink-logger
+  namespace: myapp
 spec:
   job:
     spec:

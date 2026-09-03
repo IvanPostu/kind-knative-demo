@@ -20,4 +20,4 @@ spec:
     ref:
       apiVersion: sinks.knative.dev/v1alpha1
       kind: JobSink
-      name: event-job-sink
+      name: job-sink-logger
