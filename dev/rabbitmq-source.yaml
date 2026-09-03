@@ -10,8 +10,8 @@ spec:
   rabbitmqResourcesConfig:
     queueName: q.main
     vhost: /
-  parallelism: 1
-  predeclared: true
+    parallelism: 1
+    predeclared: true
   delivery:
     retry: 5
     backoffPolicy: linear

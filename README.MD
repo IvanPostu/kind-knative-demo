@@ -37,6 +37,12 @@ kubectl apply --filename https://github.com/knative/serving/releases/download/kn
 ```
 
 ```sh
+kubectl apply -f https://github.com/knative-extensions/eventing-rabbitmq/releases/download/knative-v1.15.0/rabbitmq-source.yaml
+
+kubectl get crd rabbitmqsources.sources.knative.dev
+```
+
+```sh
 kubectl create namespace knative-eventing
 
 # kubectl apply -f https://github.com/knative-extensions/eventing-rabbitmq/releases/download/knative-v1.15.0/rabbitmq-broker.yaml
