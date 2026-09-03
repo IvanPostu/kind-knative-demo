@@ -31,32 +31,33 @@ kind create cluster --name knative --config clusterconfig.yaml
 ```
 
 ```sh
-kubectl apply --filename https://github.com/knative/serving/releases/download/knative-v1.15.0/serving-crds.yaml
+kubectl apply --filename https://github.com/knative/serving/releases/download/knative-v1.23.0/serving-crds.yaml
 
-kubectl apply --filename https://github.com/knative/serving/releases/download/knative-v1.15.0/serving-core.yaml
+kubectl apply --filename https://github.com/knative/serving/releases/download/knative-v1.23.0/serving-core.yaml
 ```
 
 ```sh
-kubectl apply -f https://github.com/knative-extensions/eventing-rabbitmq/releases/download/knative-v1.15.0/rabbitmq-source.yaml
+kubectl apply -f https://github.com/knative-extensions/eventing-rabbitmq/releases/download/knative-v1.23.0/rabbitmq-source.yaml
 
 kubectl get crd rabbitmqsources.sources.knative.dev
 ```
 
 ```sh
-kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v1.15.0/eventing-crds.yaml
-kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v1.15.0/eventing-core.yaml
+kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v1.23.0/eventing-crds.yaml
+
+kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v1.23.0/eventing-core.yaml
 ```
 
 ```sh
 kubectl create namespace knative-eventing
 
-# kubectl apply -f https://github.com/knative-extensions/eventing-rabbitmq/releases/download/knative-v1.15.0/rabbitmq-broker.yaml
+kubectl apply -f https://github.com/knative-extensions/eventing-rabbitmq/releases/download/knative-v1.23.0/rabbitmq-broker.yaml
 
-kubectl apply -f ./rabbitmq-broker.yaml
+# kubectl apply -f ./rabbitmq-broker.yaml
 ```
 
 ```sh
-curl -Lo kourier.yaml https://github.com/knative/net-kourier/releases/download/knative-v1.15.0/kourier.yaml
+curl -Lo kourier.yaml https://github.com/knative/net-kourier/releases/download/knative-v1.23.0/kourier.yaml
 ```
 
 ```sh
@@ -236,6 +237,12 @@ kubectl run rabbit-test \
 nc -vz host.docker.internal 5672
 # expect
 Connection to host.docker.internal 5672 port [tcp/amqp] succeeded!
+```
+
+```sh
+kubectl get pods -A | grep -i rabbit
+
+kubectl logs -n knative-sources <rabbitmq-controller-pod>
 ```
 
 ## References
