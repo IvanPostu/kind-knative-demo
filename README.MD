@@ -143,12 +143,13 @@ curl -v http://helloworld-go.default.127.0.0.1.sslip.io
 # file must exist
 cat ~/.kube/config
 
+kubectl create namespace argocd
+
 kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 
 argocd admin initial-password -n argocd
-# ppnWV3e5230dZ3eQ
 
 # login
 argocd login localhost:8080 --insecure
@@ -161,7 +162,10 @@ argocd app get guestbook
 kubectl port-forward svc/guestbook-ui 8081:80
 ```
 
+## My app
+
 ```sh
+kubectl create namespace myapp
 ```
 
 ```sh
@@ -172,3 +176,4 @@ kubectl port-forward svc/guestbook-ui 8081:80
 1. <https://knative.dev/blog/articles/set-up-a-local-knative-environment-with-kind/#step-1-setting-up-your-kubernetes-deployment-using-kind>
 1. <https://kind.sigs.k8s.io/docs/user/quick-start/#creating-a-cluster>
 1. <https://argo-cd.readthedocs.io/en/stable/getting_started/>
+1. <https://gitlab.com/nanuchi/argocd-app-config/-/blob/main/application.yaml?ref_type=heads>
