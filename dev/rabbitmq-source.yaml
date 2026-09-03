@@ -8,7 +8,7 @@ spec:
     connectionSecret:
       name: myapp-rabbitmq-secret
   rabbitmqResourcesConfig:
-    queueName: q.main
+    queueName: q.main1
     vhost: /
     parallelism: 1
     predeclared: true
