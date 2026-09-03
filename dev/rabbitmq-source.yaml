@@ -1,0 +1,23 @@
+apiVersion: sources.knative.dev/v1alpha1
+kind: RabbitmqSource
+metadata:
+  name: rmq-source
+  namespace: myapp
+spec:
+  rabbitmqClusterReference:
+    connectionSecret:
+      name: myapp-rabbitmq-secret
+  rabbitmqResourcesConfig:
+    queueName: q.main
+    vhost: /
+  parallelism: 1
+  predeclared: true
+  delivery:
+    retry: 5
+    backoffPolicy: linear
+    backoffDelay: PT1S
+  sink:
+    ref:
+      apiVersion: eventing.knative.dev/v1
+      kind: Broker
+      name: rabbitmq-broker

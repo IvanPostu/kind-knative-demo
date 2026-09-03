@@ -173,6 +173,23 @@ kubectl apply -f application.yaml
 ```sh
 ```
 
+## Setup rabbitmq
+
+```sh
+docker run -d \
+  --hostname rabbitmq \
+  --name rabbitmq \
+  -p 5672:5672 \
+  -p 15672:15672 \
+  -v $(pwd)/definitions1.json:/etc/rabbitmq/definitions.json:ro \
+  -v $(pwd)/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro \
+  rabbitmq:4.3.1-management-alpine
+
+# appuser3
+# qwerty
+
+```
+
 ## References
 
 1. <https://knative.dev/blog/articles/set-up-a-local-knative-environment-with-kind/#step-1-setting-up-your-kubernetes-deployment-using-kind>
