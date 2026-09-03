@@ -231,6 +231,11 @@ kubectl run rabbit-test \
   --rm -it \
   --image=nicolaka/netshoot \
   -- bash
+
+# inside the pod
+nc -vz host.docker.internal 5672
+# expect
+Connection to host.docker.internal 5672 port [tcp/amqp] succeeded!
 ```
 
 ## References
