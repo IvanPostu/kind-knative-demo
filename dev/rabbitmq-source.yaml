@@ -1,7 +1,7 @@
 apiVersion: sources.knative.dev/v1alpha1
 kind: RabbitmqSource
 metadata:
-  name: rmq-source
+  name: rmq-source1
   namespace: myapp
 spec:
   rabbitmqClusterReference:
