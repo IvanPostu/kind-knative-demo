@@ -222,7 +222,15 @@ docker run -d \
 
 # appuser3
 # qwerty
+```
 
+```sh
+# test conn to the rabbit from k8s
+kubectl run rabbit-test \
+  -n myapp \
+  --rm -it \
+  --image=nicolaka/netshoot \
+  -- bash
 ```
 
 ## References
