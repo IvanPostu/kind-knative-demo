@@ -37,6 +37,14 @@ kubectl apply --filename https://github.com/knative/serving/releases/download/kn
 ```
 
 ```sh
+kubectl create namespace knative-eventing
+
+# kubectl apply -f https://github.com/knative-extensions/eventing-rabbitmq/releases/download/knative-v1.15.0/rabbitmq-broker.yaml
+
+kubectl apply -f ./rabbitmq-broker.yaml
+```
+
+```sh
 curl -Lo kourier.yaml https://github.com/knative/net-kourier/releases/download/knative-v1.15.0/kourier.yaml
 ```
 
@@ -196,3 +204,4 @@ docker run -d \
 1. <https://kind.sigs.k8s.io/docs/user/quick-start/#creating-a-cluster>
 1. <https://argo-cd.readthedocs.io/en/stable/getting_started/>
 1. <https://gitlab.com/nanuchi/argocd-app-config/-/blob/main/application.yaml?ref_type=heads>
+1. <https://knative.dev/docs/install/eventing/rabbitmq-install/#prerequisites>
