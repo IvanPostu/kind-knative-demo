@@ -166,6 +166,8 @@ kubectl port-forward svc/guestbook-ui 8081:80
 
 ```sh
 kubectl create namespace myapp
+
+kubectl apply -f application.yaml
 ```
 
 ```sh
