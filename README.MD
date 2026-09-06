@@ -92,6 +92,9 @@ spec:
 
 # IMPORTANT
 kubectl apply --filename kourier.yaml
+
+#or
+kubectl apply --filename kourier.yaml
 ```
 
 ```sh
@@ -173,6 +176,8 @@ kubectl create namespace argocd
 
 kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
+kubectl get pods -n argocd -o wide
+
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 
 argocd admin initial-password -n argocd
@@ -213,6 +218,16 @@ kubectl apply -f application.yaml
 ```
 
 ```sh
+kubectl get jobsinks.sinks.knative.dev -n myapp
+
+kubectl run curl --image=curlimages/curl --rm=true --restart=Never -ti -- -X POST -v \
+   -H "content-type: application/json"  \
+   -H "ce-specversion: 1.0" \
+   -H "ce-source: my/curl/command" \
+   -H "ce-type: my.demo.event" \
+   -H "ce-id: 123" \
+   -d '{"details":"JobSinkDemo"}' \
+   http://job-sink.knative-eventing.svc.cluster.local/myapp/job-sink-logger
 ```
 
 ## Setup rabbitmq
