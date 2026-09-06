@@ -41,13 +41,6 @@ kubectl describe pod -n knative-eventing eventing-controller-745cfffb8f-nldfd
 ```
 
 ```sh
-# not needed?
-# kubectl apply --filename https://github.com/knative/serving/releases/download/knative-v1.15.0/serving-crds.yaml
-
-# kubectl apply --filename https://github.com/knative/serving/releases/download/knative-v1.15.0/serving-core.yaml
-```
-
-```sh
 kubectl apply -f https://github.com/knative-extensions/eventing-rabbitmq/releases/download/knative-v1.15.0/rabbitmq-source.yaml
 
 kubectl get crd rabbitmqsources.sources.knative.dev
@@ -62,108 +55,10 @@ kubectl apply -f https://github.com/knative-extensions/eventing-rabbitmq/release
 ```
 
 ```sh
-curl -Lo kourier.yaml https://github.com/knative/net-kourier/releases/download/knative-v1.15.0/kourier.yaml
-```
+kubectl get pods --namespace knative-eventing
 
-```sh
-# By default, the Kourier service is set to be of type LoadBalancer. On local machines, this type doesn’t work, so you’ll have to change the type to NodePort and add nodePort elements to the two listed ports.
-apiVersion: v1
-kind: Service
-metadata:
-  name: kourier
-  namespace: kourier-system
-  labels:
-    networking.knative.dev/ingress-provider: kourier
-spec:
-  ports:
-  - name: http2
-    port: 80
-    protocol: TCP
-    targetPort: 8080
-    nodePort: 31080
-  - name: https
-    port: 443
-    protocol: TCP
-    targetPort: 8443
-    nodePort: 31443
-  selector:
-    app: 3scale-kourier-gateway
-  type: NodePort
-
-# IMPORTANT
-kubectl apply --filename kourier.yaml
-
-#or
-kubectl apply --filename kourier.yaml
-```
-
-```sh
-kubectl patch configmap/config-network \
-  --namespace knative-serving \
-  --type merge \
-  --patch '{"data":{"ingress-class":"kourier.ingress.networking.knative.dev"}}'
-
-# validate
-kubectl describe configmap/config-network --namespace knative-serving
-
-# expect
-
-# ...
-# ingress-class:
-# ----
-# kourier.ingress.networking.knative.dev
-```
-
-```sh
-kubectl patch configmap/config-domain \
-  --namespace knative-serving \
-  --type merge \
-  --patch '{"data":{"127.0.0.1.sslip.io":""}}'
-
-kubectl describe configmap/config-domain --namespace knative-serving
-# ... (abbreviated for readability)
-# Data
-# ====
-# 127.0.0.1.sslip.io:
-# ----
-# ...
-```
-
-```sh
-kubectl get pods --namespace knative-serving
-
-kubectl get pods --namespace kourier-system
-
-kubectl --namespace kourier-system get service kourier
 
 docker ps -a
-```
-
-```sh
-cat > service.yaml <<EOF
-apiVersion: serving.knative.dev/v1 # Current version of Knative
-kind: Service
-metadata:
-  name: helloworld-go # The name of the app
-  namespace: default # The namespace the app will use
-spec:
-  template:
-    spec:
-      containers:
-        - image: ghcr.io/knative/helloworld-go:latest # The URL to the image of the app
-          env:
-            - name: TARGET # The environment variable printed out by the sample app
-              value: "Hello Knative Serving is up and running with Kourier!!"
-EOF
-
-kubectl apply --filename service.yaml
-
-kubectl get ksvc
-# wait until READY True
-```
-
-```sh
-curl -v http://helloworld-go.default.127.0.0.1.sslip.io
 ```
 
 ## ArgoCD

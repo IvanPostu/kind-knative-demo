@@ -1,8 +1,9 @@
+# rabbitmq-source.yaml
 apiVersion: sources.knative.dev/v1alpha1
 kind: RabbitmqSource
 metadata:
   name: rmq-source1
-  namespace: myapp
+  namespace: myapp1
 spec:
   rabbitmqClusterReference:
     connectionSecret:
