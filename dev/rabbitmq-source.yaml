@@ -5,9 +5,8 @@ metadata:
   name: rmq-source1
   namespace: myapp
 spec:
-  rabbitmqClusterReference:
-    connectionSecret:
-      name: myapp-rabbitmq-secret
+  connectionSecret:
+    name: myapp-rabbitmq-secret
   rabbitmqResourcesConfig:
     queueName: q.main
     vhost: /
