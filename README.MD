@@ -37,7 +37,50 @@ kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v
 
 kubectl get pods -n knative-eventing -o wide
 
-kubectl describe pod -n knative-eventing eventing-controller-745cfffb8f-nldfd 
+kubectl describe pod -n knative-eventing rabbitmq-broker-controller-598488bc4f-5fv87
+kubectl logs -n knative-eventing rabbitmq-broker-controller-598488bc4f-5fv87
+
+kubectl logs -n knative-sources deployment/rabbitmq-controller-manager --tail=50
+
+###
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.3/cert-manager.yaml
+
+kubectl apply -f https://github.com/rabbitmq/cluster-operator/releases/download/v2.12.0/cluster-operator.yml
+kubectl apply -f https://github.com/rabbitmq/messaging-topology-operator/releases/download/v1.13.0/messaging-topology-operator.yaml
+
+cat <<EOF | kubectl apply -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: rabbitmq-source-jobsink-reader
+rules:
+  - apiGroups:
+      - sinks.knative.dev
+    resources:
+      - jobsinks
+      - jobsinks/status
+    verbs:
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: rabbitmq-source-jobsink-reader-binding
+subjects:
+  - kind: ServiceAccount
+    name: rabbitmq-controller-manager
+    namespace: knative-sources
+roleRef:
+  kind: ClusterRole
+  name: rabbitmq-source-jobsink-reader
+  apiGroup: rbac.authorization.k8s.io
+EOF
+
+kubectl rollout restart deployment/rabbitmq-controller-manager -n knative-sources
+
+kubectl rollout status deployment/rabbitmq-controller-manager -n knative-sources
 ```
 
 ```sh
