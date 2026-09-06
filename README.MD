@@ -31,6 +31,17 @@ kind create cluster --name knative --config clusterconfig.yaml
 ```
 
 ```sh
+kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v1.23.0/eventing-crds.yaml
+
+kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v1.23.0/eventing-core.yaml
+
+kubectl get pods -n knative-eventing -o wide
+
+kubectl describe pod -n knative-eventing eventing-controller-745cfffb8f-nldfd 
+```
+
+```sh
+# not needed?
 kubectl apply --filename https://github.com/knative/serving/releases/download/knative-v1.23.0/serving-crds.yaml
 
 kubectl apply --filename https://github.com/knative/serving/releases/download/knative-v1.23.0/serving-core.yaml
@@ -254,3 +265,4 @@ kubectl logs -n knative-sources rabbitmq-controller-manager-cd77bd599-ptqbr
 1. <https://knative.dev/docs/install/eventing/rabbitmq-install/#prerequisites>
 1. <https://knative.dev/docs/install/yaml-install/eventing/install-eventing-with-yaml/>
 1. <https://kind.sigs.k8s.io/docs/user/configuration/#getting-started>
+1. <https://knative.dev/docs/install/yaml-install/eventing/install-eventing-with-yaml/>
